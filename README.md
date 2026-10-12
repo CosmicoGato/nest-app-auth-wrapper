@@ -22,3 +22,8 @@ npm i -g @nest/cli
 ```
 docker-compose up -d
 ```
+
+6. Levantar Backend
+```
+yarn start:dev
+```
