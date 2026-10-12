@@ -9,3 +9,9 @@ export interface AuthUserInterface {
 export interface JwtPayload {
     id: string;
 }
+
+export enum ValidRoles {
+    admin = 'admin',
+    rrhh = 'rrhh',
+    user = 'user'
+}
