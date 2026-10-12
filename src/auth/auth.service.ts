@@ -1,13 +1,13 @@
 import { AuthEncryptationService } from './services/auth-encryptation.service.js';
+import { DatabaseHelpers } from '../common/providers/database-helpers.js';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtPayload } from './interfaces/interfaces.js';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDto, LoginDto } from './dto/index.js';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity.js';
 import { UserResource } from './resources/user.resource.js';
-import { JwtPayload } from './interfaces/interfaces.js';
-import { serialize } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +17,7 @@ export class AuthService {
 
     private readonly encryptationService: AuthEncryptationService,
     private readonly jwtService: JwtService,
+    private readonly databaseHelpers: DatabaseHelpers
   ) { }
 
   async register(registerDto: RegisterDto) {
@@ -28,7 +29,7 @@ export class AuthService {
 
       return UserResource.authUser(user, this.getJwtToken({ id: dbUser.id }));
     } catch (error) {
-      console.log(error);
+      this.databaseHelpers.handleExeptions(error);
     }
   }
 

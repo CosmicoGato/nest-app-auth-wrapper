@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module.js';
+import { CommonModule } from './common/common.module.js';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { AuthModule } from './auth/auth.module.js';
       autoLoadEntities: process.env.APP_ENV == 'dev' ? true : false,
       synchronize: process.env.APP_ENV == 'dev' ? true : false,
     }),
-    AuthModule
+    CommonModule,
+    AuthModule,
   ],
 })
 export class AppModule { }
